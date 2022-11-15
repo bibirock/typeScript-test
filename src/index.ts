@@ -6,18 +6,25 @@ const number: number = 1;
 const stringArr: string[] = ['2', '2', '2', '3'];
 const numberArr: number[] = [1, 2, 3, 5];
 
-//或是使用陣列泛型來定義Array<形態>
+//或是使用陣列泛型來定義Array<形態>，此方法只適合簡單的陣列宣告，如果使用Array<object>當中如果混入叛徒，將會無法檢查到，需要另外定義型別
 const stringArr2: Array<number> = [2, 6, 7, 3];
+const objArr: Array<object> = [{}, {}, []];
 
-// 枚舉 enum ， 類似物件建構子
+// 枚舉 enum ， 類似物件建構子，不同的是賦值是使用等於
 enum LiveState {
     SUCCESS = 0,
     FAIL = -1,
     STE = 1,
 }
-
 const state = LiveState.SUCCESS;
-//console.log(state);
+
+enum Color {
+    Red = 'Red',
+    Green = 'Green',
+    Blue = 'Blue',
+}
+const c: Color = Color.Green;
+console.log(c);
 
 //Union 可以宣告多種不同的型別
 let eee: number | string;
