@@ -6,9 +6,17 @@ const number: number = 1;
 const stringArr: string[] = ['2', '2', '2', '3'];
 const numberArr: number[] = [1, 2, 3, 5];
 
-//或是使用陣列泛型來定義Array<形態>，此方法只適合簡單的陣列宣告，如果使用Array<object>當中如果混入叛徒，將會無法檢查到，需要另外定義型別
-const stringArr2: Array<number> = [2, 6, 7, 3];
-const objArr: Array<object> = [{}, {}, []];
+//一般使用interface來描述Array，這裡表示：只要索引類型是數字時，那麼值的類型必須是數字
+interface NumberArray {
+    [index: number]: number;
+}
+const fibonacci: NumberArray = [1, 2, 3];
+
+//使用interface定義型別的話，檢查陣列裡面是否為“陣列”、或是“物件”，用下面的方法，只要索引值是數字時，那麼值的類型必須是Array
+interface ObjArray {
+    [index: number]: number[];
+}
+const objArray: ObjArray = [[1, 2]];
 
 // 枚舉 enum ， 類似物件建構子，不同的是賦值是使用等於
 enum LiveState {
@@ -79,3 +87,22 @@ function hollo2(a: string, b: string): string {
 function alertName(): void {
     console.log('object');
 }
+
+//類型斷言
+interface AB {
+    run: string;
+}
+
+interface BB {
+    build: string;
+}
+
+//此斷言可以先指定type為AB，意指type是AB的話，就可以使用.run的屬性，但這邊傳入的如果是BB的話，就會壞掉
+const fn = (type: AB | BB): string => {
+    return (type as AB).run;
+};
+
+//as const 與直接使用const來宣告是有差的，比const還要嚴格
+const arr = [10, 20] as const;
+const arr2 = [10, 20];
+//這邊使用了as const進行斷言的話，就沒辦法對arr陣列進行任何操作，push\pop之類的都不行，會變成readonly屬性
