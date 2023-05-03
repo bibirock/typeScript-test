@@ -15,5 +15,8 @@
     "bugs": {
         "url": "https://github.com/bibirock/typeScript-test/issues"
     },
-    "homepage": "https://github.com/bibirock/typeScript-test#readme"
+    "homepage": "https://github.com/bibirock/typeScript-test#readme",
+    "devDependencies": {
+        "@types/node": "^18.16.3"
+    }
 }
