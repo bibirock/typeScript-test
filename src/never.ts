@@ -1,4 +1,4 @@
-type A = "唱" | "跳" | "rap" | "滾";
+type A = "唱" | "跳" | "rap";
 
 function kun(value: A) {
   switch (value) {

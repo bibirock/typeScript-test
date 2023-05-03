@@ -4,7 +4,7 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "tsc": "npx ts-node src/class.ts"
+        "tsc": "npx ts-node"
     },
     "repository": {
         "type": "git",
@@ -15,8 +15,5 @@
     "bugs": {
         "url": "https://github.com/bibirock/typeScript-test/issues"
     },
-    "homepage": "https://github.com/bibirock/typeScript-test#readme",
-    "dependencies": {
-        "pkijs": "^3.0.14"
-    }
+    "homepage": "https://github.com/bibirock/typeScript-test#readme"
 }
