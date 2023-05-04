@@ -1,8 +1,8 @@
 class Person {
   public name: string; // 允許進行外部調用，而不限於class本身
   private age: number; // 只能在宣告的class 中調用，為私有屬性
-  protected some: any;
-  static nb = "Hi Man"; // 不能透過this進行調用，只能在使用new 關鍵字時去進行取值
+  protected some: any; // 允許在自身及繼承屬性中調用的方法或是變數
+  static nb = "Hi Man"; // 不能透過this進行調用，只能在使用new 關鍵字時去進行取值，
   constructor(name: string, age: number, some: any) {
     this.age = age;
     this.name = name;
