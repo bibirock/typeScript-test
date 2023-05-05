@@ -17,7 +17,7 @@ declare module "express" {
 
   const express: Express;
 
-  export default express;
+  export default express; // 導出聲明模組
 }
 
 // 可以聲明任何東西，例如命名空間
