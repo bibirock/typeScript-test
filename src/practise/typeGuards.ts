@@ -16,4 +16,4 @@ function upGo (p: AAA | BBB): void {
     }
 }
 
-upGo({name: 'joe'})
+upGo({type: 111})

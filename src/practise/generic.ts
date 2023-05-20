@@ -1,3 +1,31 @@
+// 泛型的基本使用
+const axios = {
+  get<T>(url: string): Promise<T> { // 這邊的 <T> 就是泛型，可以讓我們在使用時指定類型
+    return new Promise((resolve, reject) => {
+     const xhr: XMLHttpRequest = new XMLHttpRequest()
+      xhr.open('GET', url)
+      xhr.onreadystatechange = () => {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+          resolve(JSON.parse(xhr.responseText))
+        } else {
+          reject('error')
+        }
+      }
+    });
+  }
+}
+
+interface ResData {
+  message: string
+  code: number
+}
+
+// 使用時指定類型
+axios.get<ResData>('http://www.baidu.com').then(res => {
+  console.log(res.message) // 回傳值的類型也會被推導出來
+  console.log(res.code);
+})
+
 const testObj = {
   name: "o",
   age: 0,
