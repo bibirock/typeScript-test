@@ -1,58 +1,35 @@
-/*
- * @Author: Joe.Chen
- * @Date: 2024-05-09 11:36:27
- * @LastEditors: Joe.Chen joechen@tracle-tw.com
- * @LastEditTime: 2024-05-09 11:39:58
- * @Description: 
- */
-import axios from "axios";
-import "reflect-metadata";
+
 // 類裝飾器
-// target 將返回 Http的構造函數constructor
-// 裝飾式可以不修改的情況下來增加class的屬性
-const Base: ClassDecorator = (target) => {
-  target.prototype.a = "b";
-  target.prototype.fn = () => {
-    console.log("I am new function");
-  };
-};
-
-// 裝飾器工廠，使用柯里化函式的方法來帶入參數。
-function BaseClass(name: string) {
-  const fn: ClassDecorator = (target) => {
-    // 類裝飾器推薦使用匿名函式放入變數中，在對其類型進在定義賦值。
-    target.prototype.a = name;
-    target.prototype.fn = () => {
-      // console.log("I am new function");
-    };
-  };
-  return fn;
+function ClassDecorator<T extends {new(...args:any[]):{}}>(constructor:T) {
+  return class extends constructor {
+      newProperty = "New property";
+      hello = "Override";
+  }
 }
 
-interface Base {
-  a: string;
-  fn: () => void;
+// 方法裝飾器
+function MethodDecorator(target: Object, propertyKey: string, descriptor: PropertyDescriptor) {
+  const originalMethod = descriptor.value;
+  descriptor.value = function(...args: any[]) {
+      console.log(`Method ${propertyKey} called with arguments: ${JSON.stringify(args)}`);
+      return originalMethod.apply(this, args);
+  }
 }
 
-const Get = (url: string) => {
-  // 裝飾器工廠
-  const fn: MethodDecorator = (
-    target,
-    _: any,
-    descriptor: PropertyDescriptor
-  ) => {
-    const key = Reflect.getMetadata("key", target);
-    axios.get(url).then((res) => {
-      descriptor.value(key ? res.data[key][0] : res.data); // 這裡如果拿到值的話，就會去拿"results"中的[0]
-    });
-  };
-  return fn;
-};
+@ClassDecorator
+class ExampleClass {
+  property = "Property";
+  hello: string;
+  constructor(m: string) {
+      this.hello = m;
+  }
 
-const Result = () => {
-  const fn: ParameterDecorator = (target, key, index) => {
-    Reflect.defineMetadata("key", "results", target); // 這裡的results為真實要取得值的鍵值
-  };
-  return fn;
-};
+  @MethodDecorator
+  method(arg: string) {
+      console.log(this.hello + " " + arg);
+  }
+}
 
+const example = new ExampleClass("Hello");
+console.log(example.property); // 'New property'
+example.method("world"); // Logs 'Method method called with arguments: ["world"]' then 'Hello world'
