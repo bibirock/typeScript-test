@@ -1,3 +1,10 @@
+/*
+ * @Author: Joe.Chen
+ * @Date: 2024-05-09 11:36:27
+ * @LastEditors: Joe.Chen joechen@tracle-tw.com
+ * @LastEditTime: 2024-05-09 11:39:58
+ * @Description: 
+ */
 import axios from "axios";
 import "reflect-metadata";
 // 類裝飾器
@@ -49,15 +56,3 @@ const Result = () => {
   return fn;
 };
 
-// @Base //使用小老鼠進行使用，會自動調用裝飾器的方法
-@BaseClass("okok")
-class Http {
-  @Get("https://randomuser.me/api/")
-  getList(@Result() data: any) {
-    console.log(data);
-  }
-}
-
-const http = new Http() as any;
-
-console.log(http.a);
