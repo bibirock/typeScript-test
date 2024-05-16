@@ -72,7 +72,6 @@ function Serializable(isSerializable: boolean) {
 }
 
 // 使用反射元數據系統（需要安裝 reflect-metadata 庫）
-import "reflect-metadata";
 
 // 屬性裝飾器
 class User {
